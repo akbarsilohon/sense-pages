@@ -1,11 +1,848 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing Pages</title>
+    <title>SayurOnline - Sayur & Buah Segar Langsung Dari Petani</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
 </head>
-<body>
-    <h1>Testing Bos Adense</h1>
+<body class="font-sans bg-gray-50 text-gray-800 antialiased overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <span class="text-2xl font-extrabold text-gray-900 tracking-tight">Sayur<span class="text-brand-600">Online</span></span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8 font-medium text-gray-600">
+                    <a href="#home" class="hover:text-brand-600 transition-colors py-2">Beranda</a>
+                    <a href="#kategori" class="hover:text-brand-600 transition-colors py-2">Kategori</a>
+                    <a href="#produk" class="hover:text-brand-600 transition-colors py-2">Produk Segar</a>
+                    <a href="#keunggulan" class="hover:text-brand-600 transition-colors py-2">Mengapa Kami</a>
+                    <a href="#testimoni" class="hover:text-brand-600 transition-colors py-2">Testimoni</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-4">
+                    <button id="cartBtn" class="relative p-2.5 text-gray-700 hover:text-brand-600 hover:bg-brand-50 rounded-full transition-all duration-200">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white scale-0 transition-transform duration-300">0</span>
+                    </button>
+                    
+                    <a href="#produk" class="hidden sm:inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-full font-semibold shadow-md shadow-brand-500/20 hover:shadow-lg transition-all duration-200">
+                        <i class="fa-solid fa-basket-shopping"></i> Belanja Now
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-gray-200 bg-white px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Beranda</a>
+            <a href="#kategori" class="mobile-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Kategori</a>
+            <a href="#produk" class="mobile-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Produk Segar</a>
+            <a href="#keunggulan" class="mobile-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Mengapa Kami</a>
+            <a href="#testimoni" class="mobile-link block px-3 py-2 rounded-md font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Testimoni</a>
+            <a href="#produk" class="mobile-link block text-center bg-brand-600 text-white py-2.5 rounded-xl font-semibold shadow">Belanja Sekarang</a>
+        </div>
+    </header>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-8 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-brand-50/60 via-white to-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Left -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100 text-brand-800 text-sm font-semibold border border-brand-200 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+                        <i class="fa-solid fa-truck-fast text-brand-600"></i> Panen Pagi, Sampe Siang!
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Sayur & Buah Segar <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-500">Bebas Pestisida</span> Langsung ke Rumah!
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Dipetik langsung dari petani lokal terbaik setiap pagi. Kualitas terjamin 100% segar, higienis, dan siap diantar dalam kurun waktu kurang dari 2 jam.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#produk" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg shadow-brand-500/30 hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                            Mulai Belanja <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#keunggulan" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 border border-gray-200 text-gray-700 px-6 py-4 rounded-2xl font-semibold text-lg transition-all">
+                            <i class="fa-circle-play text-brand-600 text-xl"></i> Cara Kerja
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats -->
+                    <div class="pt-8 border-t border-gray-200/80 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-gray-900">10k+</p>
+                            <p class="text-xs sm:text-sm text-gray-500">Pelanggan Puas</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-gray-900">100%</p>
+                            <p class="text-xs sm:text-sm text-gray-500">Garansi Segar</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl sm:text-3xl font-extrabold text-gray-900">50+</p>
+                            <p class="text-xs sm:text-sm text-gray-500">Mitra Petani</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic Right -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Background Glow -->
+                        <div class="absolute -top-6 -left-6 w-72 h-72 bg-brand-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-pulse"></div>
+                        <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-2xl opacity-50"></div>
+                        
+                        <!-- Main Image Box -->
+                        <div class="relative bg-white rounded-3xl p-4 shadow-2xl border border-gray-100 transform hover:-rotate-1 transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80" alt="Sayuran Segar Organik" class="rounded-2xl w-full h-[380px] object-cover">
+                            
+                            <!-- Floating Badge 1 -->
+                            <div class="absolute -bottom-5 -left-5 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-400">KUALITAS</p>
+                                    <p class="text-sm font-bold text-gray-800">100% Organik</p>
+                                </div>
+                            </div>
+
+                            <!-- Floating Badge 2 -->
+                            <div class="absolute -top-4 -right-4 bg-white p-3 sm:p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-lg font-bold">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-400">PENGIRIMAN</p>
+                                    <p class="text-sm font-bold text-gray-800">Cepat & Gratis</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Section -->
+    <section id="kategori" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Kategori Pilihan</h2>
+                <p class="mt-3 text-gray-600">Temukan bahan makanan segar berkualitas sesuai kebutuhan dapur Anda</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Category Card 1 -->
+                <div class="group bg-brand-50/50 hover:bg-brand-50 p-6 rounded-2xl border border-brand-100/60 transition-all duration-300 hover:shadow-md cursor-pointer text-center">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm text-brand-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mb-4">
+                        <i class="fa-solid fa-carrot"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-brand-700">Sayur Hijau</h3>
+                    <p class="text-sm text-gray-500 mt-1">Bayam, Kangkung, Broccoli</p>
+                </div>
+
+                <!-- Category Card 2 -->
+                <div class="group bg-amber-50/50 hover:bg-amber-50 p-6 rounded-2xl border border-amber-100/60 transition-all duration-300 hover:shadow-md cursor-pointer text-center">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm text-amber-500 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mb-4">
+                        <i class="fa-solid fa-apple-whole"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-amber-600">Buah Segar</h3>
+                    <p class="text-sm text-gray-500 mt-1">Apel, Jeruk, Pisang Organik</p>
+                </div>
+
+                <!-- Category Card 3 -->
+                <div class="group bg-red-50/50 hover:bg-red-50 p-6 rounded-2xl border border-red-100/60 transition-all duration-300 hover:shadow-md cursor-pointer text-center">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm text-red-500 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mb-4">
+                        <i class="fa-solid fa-pepper-hot"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-600">Bumbu Dapur</h3>
+                    <p class="text-sm text-gray-500 mt-1">Cabai, Bawang, Jahe, Lengkuas</p>
+                </div>
+
+                <!-- Category Card 4 -->
+                <div class="group bg-emerald-50/50 hover:bg-emerald-50 p-6 rounded-2xl border border-emerald-100/60 transition-all duration-300 hover:shadow-md cursor-pointer text-center">
+                    <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm text-emerald-600 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform mb-4">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-emerald-700">Paket Hemat</h3>
+                    <p class="text-sm text-gray-500 mt-1">Paket Sop, Sayur Asem, Capcay</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="produk" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Katalog Produk</h2>
+                    <p class="mt-2 text-gray-600">Pilih kebutuhan dapur berkualitas tinggi dengan harga ramah kantong</p>
+                </div>
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2" id="filterContainer">
+                    <button class="filter-btn active bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all shadow-sm" data-category="all">Semua</button>
+                    <button class="filter-btn bg-white text-gray-600 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold transition-all" data-category="sayur">Sayuran</button>
+                    <button class="filter-btn bg-white text-gray-600 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold transition-all" data-category="buah">Buah-Buahan</button>
+                    <button class="filter-btn bg-white text-gray-600 hover:bg-gray-100 border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold transition-all" data-category="bumbu">Bumbu</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid">
+                <!-- Products will be generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us / Features -->
+    <section id="keunggulan" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Mengapa Memilih SayurOnline?</h2>
+                <p class="mt-3 text-gray-600">Kami memberikan jaminan standar tinggi untuk setiap bahan belanjaan Anda.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:border-brand-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">100% Segar & Organik</h3>
+                    <p class="text-gray-600 leading-relaxed">Sayuran dipanen di hari yang sama dengan pengiriman. Tanpa pengawet dan pestisida berbahaya.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:border-brand-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Dukungan Petani Lokal</h3>
+                    <p class="text-gray-600 leading-relaxed">Setiap pembelian Anda secara langsung mendukung kesejahteraan ratusan kelompok petani lokal di Indonesia.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:border-brand-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Garansi Diganti Baru</h3>
+                    <p class="text-gray-600 leading-relaxed">Ada sayur yang layu atau rusak? Foto dan kirim ke Customer Service kami, kami ganti gratis 100%!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimoni" class="py-16 bg-brand-900 text-white relative overflow-hidden">
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-800 rounded-full filter blur-3xl opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold sm:text-4xl">Apa Kata Ibu-Ibu Cerdas?</h2>
+                <p class="mt-3 text-brand-200">Ribuan rumah tangga sudah mempercayakan kebutuhan dapur sehari-hari pada kami.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-brand-800/60 backdrop-blur border border-brand-700/50 p-6 rounded-2xl">
+                    <div class="flex text-amber-400 mb-4 gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-brand-100 text-sm leading-relaxed mb-6">"Praktis banget! Tinggal pesan lewat HP pagi-pagi, sebelum jam 10 sayuran sudah sampai di rumah dalam kondisi dingin & segar banget!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" alt="Ibu Ratna" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Ibu Ratna Pertiwi</h4>
+                            <p class="text-xs text-brand-300">Ibu Rumah Tangga, Jakarta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-800/60 backdrop-blur border border-brand-700/50 p-6 rounded-2xl">
+                    <div class="flex text-amber-400 mb-4 gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-brand-100 text-sm leading-relaxed mb-6">"Kualitas buah & sayur organiknya jempolan! Tomat dan Brokoli nya manis dan tidak gampang membusuk di kulkas. Worth it banget!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" alt="Dr. Amanda" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Dr. Amanda S.</h4>
+                            <p class="text-xs text-brand-300">Nutritionist & Mom</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-brand-800/60 backdrop-blur border border-brand-700/50 p-6 rounded-2xl">
+                    <div class="flex text-amber-400 mb-4 gap-1">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-brand-100 text-sm leading-relaxed mb-6">"Garansi retur nya beneran direspon cepat! Kemarin ada bayam yang agak layu langsung dikirim gantinya di hari itu juga. Top!"</p>
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Bapak Hendra" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Hendra Wijaya</h4>
+                            <p class="text-xs text-brand-300">Culinary Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-gray-800">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <span class="text-2xl font-extrabold text-white">Sayur<span class="text-brand-500">Online</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+                        Platform penyedia sayur, buah, dan kebutuhan dapur organik terbaik yang diantar langsung dari kebun lokal ke pintu rumah Anda.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-brand-600 hover:text-white rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-brand-600 hover:text-white rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-brand-600 hover:text-white rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="w-9 h-9 bg-gray-800 hover:bg-brand-600 hover:text-white rounded-full flex items-center justify-center transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Navigasi</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#home" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#kategori" class="hover:text-white transition-colors">Kategori</a></li>
+                        <li><a href="#produk" class="hover:text-white transition-colors">Produk Segar</a></li>
+                        <li><a href="#keunggulan" class="hover:text-white transition-colors">Mengapa Kami</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Support -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Bantuan</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Pusat Bantuan</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cara Pemesanan</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kebijakan Garansi</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Mitra Petani</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Dapatkan Promo</h4>
+                    <p class="text-xs text-gray-400 mb-3">Daftarkan email Anda untuk promo diskon bulanan.</p>
+                    <form onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!');" class="space-y-2">
+                        <input type="email" placeholder="Email Anda..." required class="w-full px-3.5 py-2.5 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-brand-500">
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl text-sm font-semibold transition-colors">Langganan</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2026 SayurOnline. All rights reserved. Dibuat dengan <i class="fa-solid fa-heart text-red-500"></i> untuk Indonesia Sehat.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer (Slide-over) -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <!-- Backdrop overlay -->
+        <div id="cartBackdrop" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cartPanel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+                
+                <!-- Drawer Header -->
+                <div class="p-6 bg-brand-600 text-white flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-basket-shopping text-2xl"></i>
+                        <h2 class="text-lg font-bold">Keranjang Belanja</h2>
+                    </div>
+                    <button id="closeCartBtn" class="p-2 text-white/80 hover:text-white rounded-lg hover:bg-brand-700 transition-colors">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Content / Items List -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar" id="cartItemsContainer">
+                    <!-- Items rendered via JS -->
+                </div>
+
+                <!-- Drawer Footer -->
+                <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4">
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between text-gray-600">
+                            <span>Subtotal</span>
+                            <span font-semibold id="cartSubtotal">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Estimasi Ongkir</span>
+                            <span class="text-brand-600 font-semibold" id="cartShipping">GRATIS</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
+                            <span>Total Pembayaran</span>
+                            <span class="text-brand-600" id="cartTotal">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button id="checkoutBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white py-3.5 rounded-xl font-bold text-center shadow-lg shadow-brand-500/30 transition-all flex items-center justify-center gap-2">
+                        <span>Lanjut ke Pembayaran</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Checkout Simulation -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl animate-fade-in relative">
+            <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pesanan Diterima!</h3>
+            <p class="text-gray-600 text-sm mb-6">Terima kasih telah berbelanja di SayurOnline. Pesanan Anda sedang disiapkan dan akan dikirimkan segera.</p>
+            
+            <div class="bg-gray-50 p-4 rounded-2xl text-left mb-6 text-sm space-y-2 border border-gray-100">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Nomor Pesanan:</span>
+                    <span class="font-bold text-gray-800" id="orderNumber">#SO-89231</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Metode Pembayaran:</span>
+                    <span class="font-bold text-gray-800">COD (Bayar di Tempat)</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Est. Tiba:</span>
+                    <span class="font-bold text-brand-600">Hari ini, < 2 Jam</span>
+                </div>
+            </div>
+
+            <button id="closeModalBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-colors">
+                Kembali ke Beranda
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Produk Mock
+        const products = [
+            {
+                id: 1,
+                name: 'Bayam Organik Segar',
+                category: 'sayur',
+                price: 7500,
+                unit: '250 gram',
+                image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=400&q=80',
+                badge: 'Best Seller',
+                badgeColor: 'bg-amber-500'
+            },
+            {
+                id: 2,
+                name: 'Brokoli Hijau Bebas Pestisida',
+                category: 'sayur',
+                price: 18500,
+                unit: '500 gram',
+                image: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=400&q=80',
+                badge: 'Segar',
+                badgeColor: 'bg-emerald-500'
+            },
+            {
+                id: 3,
+                name: 'Wortel Impor Manis',
+                category: 'sayur',
+                price: 12000,
+                unit: '500 gram',
+                image: 'https://images.unsplash.com/photo-1598170845058-12ef4a457939?auto=format&fit=crop&w=400&q=80',
+                badge: null
+            },
+            {
+                id: 4,
+                name: 'Tomat Merah Super',
+                category: 'sayur',
+                price: 9500,
+                unit: '500 gram',
+                image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80',
+                badge: null
+            },
+            {
+                id: 5,
+                name: 'Apel Fuji Manis Segar',
+                category: 'buah',
+                price: 28000,
+                unit: '1 kg',
+                image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=400&q=80',
+                badge: 'Diskon 10%',
+                badgeColor: 'bg-red-500'
+            },
+            {
+                id: 6,
+                name: 'Pisang Cavendish Organik',
+                category: 'buah',
+                price: 22000,
+                unit: '1 sisir',
+                image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=400&q=80',
+                badge: null
+            },
+            {
+                id: 7,
+                name: 'Cabai Merah Keriting',
+                category: 'bumbu',
+                price: 15000,
+                unit: '250 gram',
+                image: 'https://images.unsplash.com/photo-1588252303782-cb80119abd6d?auto=format&fit=crop&w=400&q=80',
+                badge: 'Pedas Mantap',
+                badgeColor: 'bg-red-600'
+            },
+            {
+                id: 8,
+                name: 'Bawang Merah Brebes',
+                category: 'bumbu',
+                price: 16500,
+                unit: '250 gram',
+                image: 'https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=400&q=80',
+                badge: null
+            }
+        ];
+
+        // Cart State
+        let cart = [];
+
+        // Format Currency Helper
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        // Render Products
+        function renderProducts(filterCategory = 'all') {
+            const container = document.getElementById('productGrid');
+            container.innerHTML = '';
+
+            const filtered = filterCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === filterCategory);
+
+            filtered.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group';
+                
+                productCard.innerHTML = `
+                    <div class="relative overflow-hidden bg-gray-100 h-48">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        ${product.badge ? `<span class="absolute top-3 left-3 ${product.badgeColor || 'bg-brand-600'} text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">${product.badge}</span>` : ''}
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">${product.category}</span>
+                            <h3 class="font-bold text-gray-800 text-base mt-1 line-clamp-2">${product.name}</h3>
+                            <p class="text-xs text-gray-500 mt-1">Per ${product.unit}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400">Harga</p>
+                                <p class="text-lg font-extrabold text-brand-700">${formatRupiah(product.price)}</p>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-brand-50 hover:bg-brand-600 text-brand-600 hover:text-white p-3 rounded-xl transition-all duration-200 active:scale-95 shadow-sm">
+                                <i class="fa-solid fa-cart-plus text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+
+        // Add to Cart Logic
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`<b>${product.name}</b> ditambahkan ke keranjang!`);
+        }
+
+        // Update Cart UI Component
+        function updateCartUI() {
+            const cartCountBadge = document.getElementById('cartCount');
+            const cartContainer = document.getElementById('cartItemsContainer');
+            const subtotalEl = document.getElementById('cartSubtotal');
+            const totalEl = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            
+            // Update badge count
+            cartCountBadge.innerText = totalItems;
+            if (totalItems > 0) {
+                cartCountBadge.classList.remove('scale-0');
+                cartCountBadge.classList.add('scale-100');
+            } else {
+                cartCountBadge.classList.remove('scale-100');
+                cartCountBadge.classList.add('scale-0');
+            }
+
+            // Render Drawer Items
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-20 h-20 bg-gray-100 text-gray-300 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <p class="text-gray-500 font-medium">Keranjang Anda masih kosong</p>
+                        <p class="text-xs text-gray-400 mt-1">Yuk pilih sayur & buah segar terlebih dahulu!</p>
+                    </div>
+                `;
+            } else {
+                cartContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex items-center gap-4 p-3 bg-gray-50 rounded-2xl border border-gray-100';
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl border">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-gray-800 text-sm truncate">${item.name}</h4>
+                            <p class="text-xs text-brand-600 font-semibold">${formatRupiah(item.price)}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="changeQuantity(${item.id}, -1)" class="w-6 h-6 rounded-md bg-white border border-gray-300 flex items-center justify-center text-xs text-gray-600 hover:bg-gray-100 font-bold">-</button>
+                                <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                                <button onclick="changeQuantity(${item.id}, 1)" class="w-6 h-6 rounded-md bg-white border border-gray-300 flex items-center justify-center text-xs text-gray-600 hover:bg-gray-100 font-bold">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-2 transition-colors">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    `;
+                    cartContainer.appendChild(itemEl);
+                });
+            }
+
+            // Calculate Prices
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            subtotalEl.innerText = formatRupiah(subtotal);
+            totalEl.innerText = formatRupiah(subtotal);
+        }
+
+        // Change Item Quantity
+        function changeQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        // Remove Single Item
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'bg-gray-900 text-white text-sm px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 pointer-events-auto transform translate-y-5 opacity-0';
+            toast.innerHTML = `
+                <i class="fa-solid fa-circle-check text-brand-500 text-lg"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+
+            // Animate In
+            setTimeout(() => {
+                toast.classList.remove('translate-y-5', 'opacity-0');
+            }, 10);
+
+            // Animate Out & Remove
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-5');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Drawer Controls
+        const cartDrawer = document.getElementById('cartDrawer');
+        const cartBackdrop = document.getElementById('cartBackdrop');
+        const cartPanel = document.getElementById('cartPanel');
+        const cartBtn = document.getElementById('cartBtn');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+
+        function openDrawer() {
+            cartDrawer.classList.remove('hidden');
+            setTimeout(() => {
+                cartBackdrop.classList.remove('opacity-0');
+                cartPanel.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeDrawer() {
+            cartBackdrop.classList.add('opacity-0');
+            cartPanel.classList.add('translate-x-full');
+            setTimeout(() => {
+                cartDrawer.classList.add('hidden');
+            }, 300);
+        }
+
+        cartBtn.addEventListener('click', openDrawer);
+        closeCartBtn.addEventListener('click', closeDrawer);
+        cartBackdrop.addEventListener('click', closeDrawer);
+
+        // Filter Buttons Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-600', 'text-white', 'active');
+                    b.classList.add('bg-white', 'text-gray-600');
+                });
+                btn.classList.add('bg-brand-600', 'text-white', 'active');
+                btn.classList.remove('bg-white', 'text-gray-600');
+                
+                renderProducts(btn.dataset.category);
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Checkout Modal Logic
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Keranjang Anda masih kosong!');
+                return;
+            }
+
+            // Generate Random Order ID
+            document.getElementById('orderNumber').innerText = '#SO-' + Math.floor(10000 + Math.random() * 90000);
+            
+            closeDrawer();
+            setTimeout(() => {
+                checkoutModal.classList.remove('hidden');
+            }, 300);
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+            cart = []; // Reset Cart
+            updateCartUI();
+        });
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts('all');
+            updateCartUI();
+        });
+    </script>
 </body>
 </html>
